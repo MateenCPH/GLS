@@ -4,6 +4,8 @@ import dat.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,6 +42,9 @@ public class Package {
     @ToString.Exclude
     @Column(name = "updated_date_time", nullable = false)
     private LocalDateTime updatedDateTime;
+
+    @OneToMany(mappedBy = "aPackage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Shipment> shipments = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
